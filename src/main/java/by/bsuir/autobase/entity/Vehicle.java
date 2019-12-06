@@ -3,7 +3,7 @@ package by.bsuir.autobase.entity;
 /**
  * The type Vehicle.
  */
-public abstract class Vehicle {
+public class Vehicle {
 
     private String make;
     private String model;

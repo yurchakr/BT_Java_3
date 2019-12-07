@@ -1,17 +1,14 @@
 package by.bsuir.autobase.dao.VehicleDao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import by.bsuir.autobase.entity.Vehicle;
+import org.xml.sax.SAXException;
 
-/**
- * The interface Vehicle dao.
- */
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
+
 public interface IVehicleDAO {
 
-    /**
-     * Gets vehicles.
-     *
-     * @return the vehicles
-     */
-    ArrayList<Vehicle> getVehicles();
+    ArrayList<Vehicle> getVehicles() throws ParserConfigurationException, SAXException, IOException, XMLStreamException;
 }

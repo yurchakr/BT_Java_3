@@ -1,7 +1,8 @@
 <%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="by.bsuir.autobase.entity.Vehicle" %><%--
   Created by IntelliJ IDEA.
-  User: Aleksey
+  User: Roman
   Date: 06.12.2019
   Time: 14:53
   To change this template use File | Settings | File Templates.
@@ -13,26 +14,33 @@
 </head>
 
 <body>
-<div>
-    <h1>Super app!</h1>
-</div>
 
 <div>
     <div>
-        <div>
-            <h2>Users</h2>
-        </div>
-        <%
-            List<Vehicle> vehicles = (List<Vehicle>) request.getAttribute("vehicleList");
+        <table border="1">
+            <caption>Vehicle info</caption>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Fuel consumption</th>
+                <th>Power</th>
+                <th>Year</th>
+                <th>Fuel type</th>
+            </tr>
+            <c:forEach var="vehicle" items="${vehicleList}">
+                <tr>
+                    <td><c:out value="${vehicle.getMake()}" /></td>
+                    <td><c:out value="${vehicle.getModel()}" /></td>
+                    <td><c:out value="${vehicle.getPrice()}" /></td>
+                    <td><c:out value="${vehicle.getFuelConsumption()}" /></td>
+                    <td><c:out value="${vehicle.getPower()}" /></td>
+                    <td><c:out value="${vehicle.getYear()}" /></td>
+                    <td><c:out value="${vehicle.getFuelType().toString()}" /></td>
+                </tr>
+            </c:forEach>
+        </table>
 
-            if (vehicles != null && !vehicles.isEmpty()) {
-                out.println("<ui>");
-                for (Vehicle veh : vehicles) {
-                    out.println("<li>" + veh.getMake() + "</li>");
-                }
-                out.println("</ui>");
-            } else out.println("<p>There are no vehicles yet!</p>");
-        %>
     </div>
 </div>
 

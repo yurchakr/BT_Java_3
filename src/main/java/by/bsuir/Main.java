@@ -1,16 +1,18 @@
 package by.bsuir;
 
-/**
- * The type Main.
- */
+import by.bsuir.Parsers.DOM;
+import by.bsuir.autobase.dao.DaoFactory;
+import by.bsuir.autobase.entity.Vehicle;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main {
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
 
     }
 }

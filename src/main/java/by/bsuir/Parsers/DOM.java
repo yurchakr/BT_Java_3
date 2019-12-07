@@ -14,12 +14,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 public class DOM {
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
+    private static Logger log = Logger.getLogger(String.valueOf(DOM.class));
 
     public ArrayList<Vehicle> getResult(String XMLPath) throws ParserConfigurationException, IOException, SAXException {
 
+        log.info("DOM: Parsing started");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(XMLPath));
@@ -28,7 +32,7 @@ public class DOM {
 
         for (int i = 0; i < vehicleElements.getLength(); i++) {
 
-            Node nNode =vehicleElements.item(i);
+            Node nNode = vehicleElements.item(i);
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
@@ -45,7 +49,7 @@ public class DOM {
                 vehicles.add(vehicle);
             }
         }
-
+        log.info("DOM: Parsing completed");
         return vehicles;
     }
 }

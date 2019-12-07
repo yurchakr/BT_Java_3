@@ -9,16 +9,18 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class StAX implements AutoCloseable {
     private static final XMLInputFactory FACTORY = XMLInputFactory.newInstance();
-
+    private static Logger log = Logger.getLogger(String.valueOf(StAX.class));
     private final XMLStreamReader reader;
 
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     public ArrayList<Vehicle> getResult() throws XMLStreamException {
 
+        log.info("StAX: Parsing started");
         while (reader.hasNext()) {       // while not end of XML
             int event = reader.next();   // read next event
             if (event == XMLEvent.START_ELEMENT &&
@@ -49,7 +51,7 @@ public class StAX implements AutoCloseable {
                 vehicles.add(vehicle);
             }
         }
-
+        log.info("StAX: Parsing completed");
         return vehicles;
     }
 

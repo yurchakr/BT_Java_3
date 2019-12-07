@@ -6,17 +6,19 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.*;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class SAX extends DefaultHandler {
     private Vehicle vehicle;
     private String thisElement = "";
     private ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    private static Logger log = Logger.getLogger(String.valueOf(SAX.class));
 
     public ArrayList<Vehicle> getResult(){  return vehicles;  }
 
     @Override
     public void startDocument() throws SAXException {
-        System.out.println("Start parse XML...");
+        log.info("SAX: Parsing started");
     }
 
     @Override
@@ -63,6 +65,6 @@ public class SAX extends DefaultHandler {
 
     @Override
     public void endDocument() {
-        System.out.println("Stop parse XML...");
+        log.info("SAX: Parsing completed");
     }
 }

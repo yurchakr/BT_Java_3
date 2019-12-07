@@ -1,6 +1,5 @@
-<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="by.bsuir.autobase.entity.Vehicle" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Roman
   Date: 06.12.2019

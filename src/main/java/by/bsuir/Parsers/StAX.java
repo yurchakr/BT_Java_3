@@ -20,6 +20,7 @@ public class StAX implements AutoCloseable {
 
     public ArrayList<Vehicle> getResult() throws XMLStreamException {
 
+        boolean endOfVehicleElement;
         log.info("StAX: Parsing started");
         while (reader.hasNext()) {       // while not end of XML
             int event = reader.next();   // read next event
@@ -27,26 +28,38 @@ public class StAX implements AutoCloseable {
                     "vehicle".equals(reader.getLocalName())) {
                 Vehicle vehicle = new Vehicle();
 
-                doUntil(XMLEvent.START_ELEMENT, "make");
-                vehicle.setMake(reader.getElementText());
-
-                doUntil(XMLEvent.START_ELEMENT, "model");
-                vehicle.setModel(reader.getElementText());
-
-                doUntil(XMLEvent.START_ELEMENT, "price");
-                vehicle.setPrice(Double.parseDouble(reader.getElementText()));
-
-                doUntil(XMLEvent.START_ELEMENT, "fuelConsumption");
-                vehicle.setFuelConsumption(Double.parseDouble(reader.getElementText()));
-
-                doUntil(XMLEvent.START_ELEMENT, "power");
-                vehicle.setPower(Integer.parseInt(reader.getElementText()));
-
-                doUntil(XMLEvent.START_ELEMENT, "year");
-                vehicle.setYear(Integer.parseInt(reader.getElementText()));
-
-                doUntil(XMLEvent.START_ELEMENT, "fuelType");
-                vehicle.setFuelType(FuelType.valueOf(reader.getElementText()));
+                endOfVehicleElement = false;
+                while (reader.hasNext())
+                {
+                    if (reader.next() == XMLEvent.START_ELEMENT)
+                        switch (reader.getLocalName())
+                        {
+                            case "make":
+                                vehicle.setMake(reader.getElementText());
+                                break;
+                            case "model":
+                                vehicle.setModel(reader.getElementText());
+                                break;
+                            case "price":
+                                vehicle.setPrice(Double.parseDouble(reader.getElementText()));
+                                break;
+                            case "fuelConsumption":
+                                vehicle.setFuelConsumption(Double.parseDouble(reader.getElementText()));
+                                break;
+                            case "power":
+                                vehicle.setPower(Integer.parseInt(reader.getElementText()));
+                                break;
+                            case "year":
+                                vehicle.setYear(Integer.parseInt(reader.getElementText()));
+                                break;
+                            case "fuelType":
+                                vehicle.setFuelType(FuelType.valueOf(reader.getElementText()));
+                                endOfVehicleElement = true;
+                                break;
+                        }
+                    if (endOfVehicleElement)
+                        break;
+                }
 
                 vehicles.add(vehicle);
             }
@@ -64,15 +77,6 @@ public class StAX implements AutoCloseable {
         return reader;
     }
 
-    private boolean doUntil(int stopEvent, String value) throws XMLStreamException {
-        while (reader.hasNext()) {
-            int event = reader.next();
-            if (event == stopEvent && value.equals(reader.getLocalName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public void close() {

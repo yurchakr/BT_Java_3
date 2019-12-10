@@ -14,22 +14,25 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 
 public class DOM {
-    private ArrayList<Vehicle> vehicles = new ArrayList<>();
+    public static final String VEHICLE = "vehicle";
+    private List<Vehicle> vehicles;
     private static Logger log = Logger.getLogger(String.valueOf(DOM.class));
 
-    public ArrayList<Vehicle> getResult(String XMLPath) throws ParserConfigurationException, IOException, SAXException {
+    public List<Vehicle> getResult(String XMLPath) throws ParserConfigurationException, IOException, SAXException {
 
         log.info("DOM: Parsing started");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(XMLPath));
 
-        NodeList vehicleElements = document.getDocumentElement().getElementsByTagName("vehicle");
+        NodeList vehicleElements = document.getDocumentElement().getElementsByTagName(VEHICLE);
 
+        vehicles = new ArrayList<>();
         for (int i = 0; i < vehicleElements.getLength(); i++) {
 
             Node nNode = vehicleElements.item(i);
